@@ -41,10 +41,74 @@ const employees = [
 // Ask questions when you don't.
 
 // This function will calculate 1 employee's bonus!
+
 //
-function calculateIndividualEmployeeBonus(employee) {
-  // Your logic here
+for (let employee of employees) {
+  console.log(employees);
 }
+function calculateIndividualEmployeeBonus(employee) {
+  
+  
+
+  // Your logic here
+
+let newEmployee = {
+  name: employee.name,
+  bonusPercentage: 0.0,
+  totalCompensation: 0,
+  totalBonus: 0,
+};
+  
+   // Calculate the bonus percentage based on some business logic
+   if (employee.reviewRating <= 2) {
+    //if 2 or below do nothing
+    newEmployee.bonusPercentage = 0;
+  } else if (employee.reviewRating === 3) {
+    newEmployee.bonusPercentage = 0.04;
+    console.log(newEmployee.bonusPercentage);
+  } else if (employee.reviewRating === 4) {
+    newEmployee.bonusPercentage = 0.06;
+    console.log(newEmployee.bonusPercentage);
+  } else if (employee.reviewRating === 5) {
+    newEmployee.bonusPercentage = 0.1;
+    console.log(newEmployee.bonusPercentage);
+  }
+
+  // Check for 4-digit employee number
+  if (employee.employeeNumber.length === 4) {
+    newEmployee.bonusPercentage += 0.05;
+  }
+
+  // Check for high earners...and deduct .01 pct
+  if (Number(employee.annualSalary) > 65000) {
+    newEmployee.bonusPercentage -= 0.01;
+  }
+
+  // Ensure that the bonus in not less than 0%, no more than 13%
+  if (newEmployee.bonusPercentage < 0) {
+    newEmployee.bonusPercentage = 0;
+  } else if (newEmployee.bonusPercentage > 0.13) {
+    newEmployee.bonusPercentage = 0.13;
+  }
+
+  // Can also just use Math library:
+  // newEmployee.bonusPercentage = Math.max(newEmployee.bonusPercentage, 0.0);
+  // newEmployee.bonusPercentage = Math.min(newEmployee.bonusPercentage, 0.13);
+
+  // Total Bonus calculation
+  const totalBonus = newEmployee.bonusPercentage * Number(employee.annualSalary);
+  //the employee total bonus
+  newEmployee.totalBonus = totalBonus;
+
+  // Total Compensation
+  const totalCompensation = Number(employee.annualSalary) + totalBonus; //use Number() to cast annualSalary (string) to a number
+  newEmployee.totalCompensation = totalCompensation;
+
+  // Return the bonus calcuation object.
+  return newEmployee;
+
+}
+
 
 // Loop over each employee in the employees array
 // and call the calculateIndividualEmployeeBonus function for each one
